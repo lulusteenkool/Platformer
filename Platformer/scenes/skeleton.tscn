@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://3m2kv70otgx2"]
+
+[ext_resource type="Script" uid="uid://cu331lpjnylk" path="res://scripts/slime.gd" id="1_ivqcw"]
+[ext_resource type="Texture2D" uid="uid://c8ddk08vfs0ho" path="res://assets/skeleton-walk.png" id="2_ivqcw"]
+[ext_resource type="PackedScene" uid="uid://chngsr6v2rqa2" path="res://scenes/killzone.tscn" id="3_5pgwy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bnirc"]
+atlas = ExtResource("2_ivqcw")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pgwy"]
+atlas = ExtResource("2_ivqcw")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssl1b"]
+atlas = ExtResource("2_ivqcw")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4hcs"]
+atlas = ExtResource("2_ivqcw")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2xjuo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bnirc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pgwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssl1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4hcs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivqcw"]
+size = Vector2(16, 25)
+
+[node name="skeleton" type="Node2D"]
+top_level = true
+script = ExtResource("1_ivqcw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2xjuo")
+autoplay = "default"
+frame_progress = 0.308055
+
+[node name="killzone" parent="." instance=ExtResource("3_5pgwy")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_ivqcw")
+
+[node name="RaycastR" type="RayCast2D" parent="."]
+target_position = Vector2(10, 1)
+collision_mask = 2
+
+[node name="RaycastL" type="RayCast2D" parent="."]
+target_position = Vector2(-10, 1)
+collision_mask = 2
